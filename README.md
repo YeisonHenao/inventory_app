@@ -1,36 +1,78 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 📝 Inventario App
 
-## Getting Started
+### Descripción del Proyecto
 
-First, run the development server:
+Esta es una aplicación de inventario local para la gestión de productos, construida con una arquitectura **Full Stack JavaScript** que utiliza **Next.js** para el frontend y el backend (a través de **API Routes**). La aplicación está optimizada para el rendimiento y una experiencia de desarrollo fluida.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+---
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 🛠️ Tecnologías y Arquitectura
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+* **Frontend**:
+    * **Framework**: Next.js
+    * **Estilos**: Tailwind CSS 4.0
+    * **Estado Global**: Zustand para una gestión de estado simple y escalable.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+* **Backend**:
+    * **API**: Next.js API Routes (`app/api`)
+    * **Base de Datos**: PostgreSQL
+    * **ORM**: [Menciona aquí tu ORM, por ejemplo: Prisma, Drizzle, etc.]
+    * **Autenticación**: [Menciona aquí tu método de autenticación, por ejemplo: NextAuth.js, JWT, etc.]
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+### 📂 Estructura del Proyecto
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+La estructura de carpetas sigue las convenciones de Next.js y React para una mejor organización y escalabilidad.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+* `src/`: Directorio principal del código fuente.
+    * `(auth)/`: **Grupo de rutas** para las vistas de autenticación (Login, Register).
+    * `(main)/`: **Grupo de rutas** para las vistas principales de la aplicación (Dashboard, Productos, etc.).
+    * `app/`: Contiene la configuración principal de Next.js y las rutas del backend (`/api`).
+    * `components/`: Almacena **componentes de React reutilizables** y atómicos.
+    * `services/`: Contiene la **lógica de negocio** y los servicios para interactuar con el backend.
+    * `utils/`: Funciones de utilidad y helpers.
+    * `store/`: Gestión del estado global con **Zustand**.
+    * `styles/`: Archivos CSS personalizados y configuración de Tailwind CSS.
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### 🚀 Cómo Empezar
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1.  **Clonar el repositorio**:
+    ```bash
+    git clone [URL-del-repositorio]
+    ```
+
+2.  **Instalar dependencias**:
+    ```bash
+    npm install
+    ```
+
+3.  **Configurar la base de datos**:
+    * Asegúrate de tener una instancia de PostgreSQL en ejecución.
+    * Crea un archivo `.env.local` en la raíz del proyecto.
+    * Añade las credenciales de tu base de datos:
+        ```
+        DATABASE_URL="postgresql://user:password@host:port/database"
+        ```
+
+4.  **Ejecutar migraciones (si aplica)**:
+    ```bash
+    npx prisma migrate dev
+    ```
+
+5.  **Iniciar la aplicación**:
+    ```bash
+    npm run dev
+    ```
+
+---
+
+### ✅ Buenas Prácticas y Puntos de Interés
+
+* **Server Components**: La aplicación utiliza Server Components de Next.js para mejorar el rendimiento.
+* **Convenciones de Nombres**: Se siguen convenciones claras para los nombres de componentes, variables y archivos.
+* **Separación de Responsabilidades**: La lógica de negocio está separada de los componentes de la UI.
+* **Estado Mínimo**: El estado global de Zustand se utiliza solo cuando es necesario, priorizando la gestión de estado a nivel de componente.
+* **Diseño Modular**: Los componentes son modulares y reutilizables, lo que agiliza el desarrollo de nuevas características.
