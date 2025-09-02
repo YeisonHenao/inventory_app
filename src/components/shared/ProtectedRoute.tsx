@@ -3,6 +3,7 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useStore } from '@/store';
+import { storage } from '@/utils/storage';
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
@@ -13,16 +14,12 @@ export default function ProtectedRoute({ children }: ProtectedRouteProps) {
   const router = useRouter();
 
   useEffect(() => {
-    // Verificar el estado de autenticación al cargar el componente
-    checkAuthStatus();
-  }, [checkAuthStatus]);
-
-  useEffect(() => {
-    // Si no está cargando y no está autenticado, redirigir al login
-    if (!loading && !isAuthenticated) {
-      router.push('/login');
+    // Verificar el estado de autenticación
+    if (!storage.isAuthenticated()) {
+      router.replace('/login');
     }
-  }, [isAuthenticated, loading, router]);
+    checkAuthStatus();
+  }, [checkAuthStatus, router]);
 
   // Mostrar un indicador de carga mientras se verifica la autenticación
   if (loading) {
