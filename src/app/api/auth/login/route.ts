@@ -1,11 +1,21 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
+'use server';
+
+'use server';
+
 import { NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
 import bcrypt from 'bcrypt';
 
 export async function POST(request: Request) {
   try {
-    const { email, password } = await request.json();
+    // 1. Log para verificar que la ruta se está llamando
+    console.log('Iniciando proceso de login');
+
+    // 2. Obtener y validar datos de entrada
+    const body = await request.json();
+    console.log('Datos recibidos:', { email: body.email, passwordReceived: !!body.password });
+
+    const { email, password } = body;
 
     // Buscar el usuario por email
     const user = await prisma.user.findUnique({

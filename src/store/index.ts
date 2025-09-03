@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-empty-object-type */
 // Store principal que combina todos los stores
 import { create } from 'zustand';
 import { createAuthSlice, AuthState } from './slices/authSlice';

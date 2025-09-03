@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { StateCreator } from 'zustand';
 import { storage } from '@/utils/storage';
 
@@ -42,23 +43,42 @@ export const createAuthSlice: StateCreator<AuthState> = (set) => ({
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.message || 'Error al iniciar sesión');
+        // Manejar diferentes códigos de error
+        switch (response.status) {
+          case 404:
+            throw new Error('Usuario no encontrado');
+          case 401:
+            throw new Error('Contraseña incorrecta');
+          default:
+            throw new Error(data.message || 'Error al iniciar sesión');
+        }
       }
 
-      const { password: _, ...user } = data;
+      // Asegurarnos de que data tiene la estructura correcta
+      if (!data.id || !data.email) {
+        throw new Error('Respuesta del servidor inválida');
+      }
+
+      const user: User = {
+        id: data.id,
+        email: data.email,
+        name: data.name || ''
+      };
       
       // Guardar en localStorage con expiración
       storage.setAuth({
         user,
-        token: 'session_token' // En este caso usamos un token simple
+        token: 'session_token'
       });
       
       set({ isAuthenticated: true, user, loading: false });
     } catch (error) {
+      console.error('Error en login:', error);
       set({ 
         error: error instanceof Error ? error.message : 'Error al iniciar sesión', 
         loading: false 
       });
+      throw error; // Re-lanzar el error para manejarlo en el componente
     }
   },
   
